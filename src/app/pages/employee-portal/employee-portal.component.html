@@ -1,0 +1,161 @@
+<div class="row">
+    <div class="col-8">
+        <div class="card">
+            <div class="card-header bg-success">
+                <h6>Employee List </h6>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12">
+                        <table class="table table-bordered">
+                            <thead>
+                                
+                                <tr>
+                                    <th>Sr No</th>
+                                    <th>EmailId</th>
+                                    <th>Name</th>
+                                    <th>Gender </th>
+                                    <th>City</th>
+                                    <th>State</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @for (item of employeeList; track $index) {
+                                <tr>
+                                    <td>{{$index+1}}</td>
+                                    <td>{{item.emailId}}</td>
+                                    <td>{{item.name}}  <strong class="mx-2 text-center bg-secondary p-2 rounded-1"> EmpID : {{item.empId}} </strong> </td>
+                                    <td>{{item.gender}}</td>
+                                    <td>{{item.city}}</td>
+                                    <td>{{item.state}}</td>
+                                    <td class="text-center"><button class="btn btn-warning" (click)="onedit(item)">Edit</button> 
+                                    <button class="btn btn-danger mx-2" (click)="onDelete($index)">Delete</button>  </td>
+                                </tr>
+                            }
+                        </tbody>
+                            
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-4">
+        <div class="card">
+            <div class="card-header bg-success">
+                <h6>Add Employee</h6>
+            </div>
+            <div class="card-body">
+                <form [formGroup]="employeeForm">
+                    <div class="row">
+                        <div class="col-6">
+                            <label for="">Name :</label>
+                            <input type="text" formControlName="name" class="form-control">
+                            <div class="text-danger">
+                                @if (employeeForm.controls['name'].touched) {
+                                    @if (employeeForm.controls['name'].errors?.['required']) {
+                                        <span>Name is required</span>
+                                    }   
+                                }
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <label for="">Email :</label>
+                            <input type="text" formControlName="emailId" class="form-control">
+                            <div class="text-danger">
+                                @if (employeeForm.controls['emailId'].touched) {
+                                    @if (employeeForm.controls['emailId'].errors?.['required']) {
+                                        <span>Email is required</span>
+                                    }  
+                                    @if (employeeForm.controls['emailId'].errors?.['email']) {
+                                        <span>Enter a proper EmailId</span>
+                                    } 
+                                }
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <label for="">Phone :</label>
+                            <input type="text" formControlName="contactNo" class="form-control">
+                            <div class="text-danger">
+                                @if (employeeForm.controls['contactNo'].touched) {
+                                    @if (employeeForm.controls['contactNo'].errors?.['required']) {
+                                        <span>Contact-Number is required</span>
+                                    }   
+                                    @if (employeeForm.controls['contactNo'].errors?.['minlength']) {
+                                        <span>Contact-Min-length is 10 and max length is 10</span>
+                                    } 
+                                }
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <label for="">City :</label>
+                            <input type="text" formControlName="city" class="form-control">
+                            <div class="text-danger">
+                                @if (employeeForm.controls['city'].touched) {
+                                    @if (employeeForm.controls['city'].errors?.['required']) {
+                                        <span>City is required</span>
+                                    }   
+                                }
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <label for="">State :</label>
+                            <input type="text" formControlName="state" class="form-control">
+                            <div class="text-danger">
+                                @if (employeeForm.controls['state'].touched) {
+                                    @if (employeeForm.controls['state'].errors?.['required']) {
+                                        <span>State is required</span>
+                                    }   
+                                }
+                            </div>
+                        </div>
+                        <div class="col-6 mt-4">
+                            <label for="">Gender :</label> &nbsp;
+                            <input type="radio" formControlName="gender" class="form-check-input" id="Male" name="gender" value="Male">
+                            &nbsp;
+                            <label for="Male" class="form-check-label">Male</label>
+                            <input type="radio" formControlName="gender" class="form-check-input" id="Female" name="gender" value="Female">
+                            &nbsp;
+                            <label for="Female" class="form-check-label">Female</label>
+                            <div class="text-danger">
+                                @if (employeeForm.controls['gender'].touched) {
+                                    @if (employeeForm.controls['gender'].errors?.['required']) {
+                                        <span>Gender is required</span>
+                                    }   
+                                }
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <label for="" >Address :</label>
+                            <textarea name="" id="" formControlName="address" class="form-control" rows="3"></textarea>
+                            <div class="text-danger">
+                                @if (employeeForm.controls['address'].touched) {
+                                    @if (employeeForm.controls['address'].errors?.['required']) {
+                                        <span>Address is required</span>
+                                    }   
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-6 text-center">
+                            <button class="btn btn-secondary" type="button" (click)="Reset()">Reset </button>
+                        
+                        </div>
+                        <div class="col-6 text-center">
+                            @if (employeeForm.controls['empId'].value=='1') {
+                                <button class="btn btn-success" [disabled]="employeeForm.invalid" (click)="OnSave()">Save Employess </button>
+                            }@else{
+                                <button class="btn btn-warning" type="button" (click)="onUpdate()">Update Employee</button>
+                            }
+                            
+                            
+                        </div>
+                    </div>
+                </form>
+                
+            </div>
+        </div>
+    </div>
+</div>

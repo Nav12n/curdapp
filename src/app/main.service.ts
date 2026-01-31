@@ -5,8 +5,19 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class MainService {
-  name:string="navin";
-  apiurl: string = "https://localhost:3000";
-  constructor(private http:HttpClient){}
+  private apiUrl = 'https://script.google.com/macros/s/AKfycbzBJepProBs4TPcTVyoiZnteYHeMu4AA0d94YQspjLKDIHrwhof2M26rmmPM4uaeVXh2Q/exec';
+   constructor(private http: HttpClient) {}
+   submitFeedback(data: any) {
+    const formData = new FormData();
+    formData.append('name', data.name);
+    formData.append('phone', data.phone);
+    formData.append('email', data.email);
+    formData.append('rating', data.rating);
+    formData.append('message', data.message);
+  
+    return this.http.post(this.apiUrl, formData, {
+      responseType: 'text'
+    });
+  }
    
 }

@@ -1,0 +1,11 @@
+.bi-star {
+    cursor: pointer;
+  }
+  
+  .btn-check:checked + .bi-star {
+    color: #ffc107;
+  }
+  
+  .bi-star:hover {
+    color: #ffc107;
+  }

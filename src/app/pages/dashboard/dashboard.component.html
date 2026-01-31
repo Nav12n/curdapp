@@ -1,1 +1,133 @@
-<p>dashboard works!</p>
+<!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet"> -->
+<div class="container m-3">
+<div class="row">
+  <div class="col-12 col-lg-8 text-center">
+    <div class="card">
+      <div class="card-header bg-dark text-white">
+          <h6>Contact-Info & FeedBack</h6>
+      </div>
+      <div class="card-body">
+        <form #contactForm="ngForm" (ngSubmit)="submit()">
+  <div class="col-12 mb-3">
+    <input class="form-control"
+           placeholder="Name"
+           [(ngModel)]="model.name"
+           name="name"
+           required>
+  </div>
+
+  <div class="col-12 mb-3">
+    <input class="form-control"
+           placeholder="Phone"
+           [(ngModel)]="model.phone"
+           name="phone"
+           required>
+  </div>
+
+  <div class="col-12 mb-3">
+    <input class="form-control"
+           type="email"
+           placeholder="Email"
+           [(ngModel)]="model.email"
+           name="email"
+           required>
+  </div>
+
+  <div class="col-12 mb-3 text-center">
+    <label class="form-label d-block">Rating</label>
+    <div class="d-flex justify-content-center gap-2 fs-3">
+      <ng-container *ngFor="let r of [1,2,3,4,5]">
+        <input
+          type="radio"
+          class="btn-check"
+          name="rating"
+          [id]="'rating' + r"
+          [value]="r"
+          [(ngModel)]="model.rating"
+          required
+        />
+        <label
+          class="bi"
+          name="rating"
+          [ngClass]="model.rating >= r
+              ? 'bi-star-fill text-warning'
+              : 'bi-star text-warning'
+          "
+          [for]="'rating' + r"
+          style="cursor: pointer"
+        ></label>
+      </ng-container>
+    </div>
+  </div>
+
+  <div class="col-12 mb-3">
+    <textarea class="form-control"
+              rows="4"
+              placeholder="Your message to us"
+              [(ngModel)]="model.message"
+              name="message"
+              required></textarea>
+  </div>
+
+  <div class="row">
+  <div class="col-6 text-center">
+  <button class="btn btn-outline-dark w-100"
+  type="button"
+          (click)="resetForm()">
+    Reset
+  </button></div>
+  <div class="col-6 text-center">
+    <button class="btn btn-dark w-100"
+            type="submit"
+            [disabled]="contactForm.invalid">
+      Send Message
+    </button></div>
+</div>
+
+  <div *ngIf="success" class="alert alert-success mt-3">
+    Submitted successfully!
+  </div>
+
+  <div *ngIf="error" class="alert alert-danger mt-3">
+    Submission failed. Try again.
+  </div>
+
+</form>
+      </div>
+  </div>
+</div>
+
+</div>
+
+<!-- 
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Open modal for @mdo</button>
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@fat">Open modal for @fat</button>
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap">Open modal for @getbootstrap</button>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">New message</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Recipient:</label>
+            <input type="text" class="form-control" id="recipient-name">
+          </div>
+          <div class="mb-3">
+            <label for="message-text" class="col-form-label">Message:</label>
+            <textarea class="form-control" id="message-text"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Send message</button>
+      </div>
+    </div>
+  </div>
+</div> -->
+
